@@ -1,0 +1,33 @@
+
+
+
+.products
+{
+    font-size: 1.5rem;
+    border-radius: 20px;
+    box-shadow: #fdb931 0px -9px 21px 0px;
+    padding: 15px 25px;
+    transition: all 0.2s linear 0.2s;
+    padding: 50px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 20px 0;
+    grid-column: 1 / 4;
+}
+
+.products > .product > img 
+{
+    width: -webkit-fill-available;
+}
+
+.products > .product 
+{
+    max-width: calc(90vw / 5);
+    margin: 5px 0px;
+    border: 1px solid #FEDB37;
+    border-radius: 25px;
+    cursor: pointer;
+}
