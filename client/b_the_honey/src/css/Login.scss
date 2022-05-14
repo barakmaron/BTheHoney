@@ -1,0 +1,16 @@
+.login_block
+{
+    margin: 20px auto;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    box-shadow: #fdb931 0px 13px 21px 0px;
+    padding: 15px 25px;
+    transition: all 0.2s linear 0.2s;
+    grid-column: 1 / 4;
+}
+
+.login_block:hover
+{
+    transition: all 0.2s linear 0.2s;
+    box-shadow: #fdb931 0px 5px 21px 0px;
+}
