@@ -1,18 +1,26 @@
 import React from 'react';
 
 import '../css/Login.scss';
+import Button from './Button';
 
 const Login = () => {
   return (
     <div className="login_block">
-      <input type="text" id='user_email' placeHolder="Email" value=""/>
-      <label for="user_email">
-          Email
-      </label>
-      <input type="password" id='password' placeHolder="" value=""/>
-      <label for="password">
-          Password
-      </label>
+        <div>
+            <input type="email" id='user_email' placeholder=" " required/>
+            <label htmlFor="user_email">
+                Email
+            </label>
+        </div>
+        <div>
+            <input type="password" id='password' placeholder=" " required/>
+            <label htmlFor="password">
+                Password
+            </label>
+        </div>
+        <div>
+            <Button id="Login" text="Login" onClick={() => {}}></Button>
+        </div>
     </div>
   )
 }
