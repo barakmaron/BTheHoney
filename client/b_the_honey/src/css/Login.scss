@@ -14,3 +14,55 @@
     transition: all 0.2s linear 0.2s;
     box-shadow: #fdb931 0px 5px 21px 0px;
 }
+
+.login_block > div 
+{
+    position: relative;
+}
+
+.login_block > div > input
+{
+    margin: 10px auto 0;
+    padding: 10px 0px 10px 25px;
+    font-size: 1.5rem;
+    color: #efa500;
+    border: 0;
+    border-bottom: 5px solid #fdb931;
+    min-width: 280px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.login_block > div > input:not(:placeholder-shown),
+.login_block > div > input:focus
+{
+    padding-top: 50px;
+    transition: all 0.2s linear 0.01s;
+}
+
+.login_block > div > label
+{
+    position: absolute;
+    top: 23px;
+    left: 30px;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.login_block > div > input:valid
+{
+    background: url(../assets/check-icon.svg);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 0px 21px;
+    border-bottom: 5px solid #66d300;
+}
+
+.login_block > div > input:invalid:not(:placeholder-shown)
+{
+    background: url('../assets/xicon.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 0px 21px;
+    border-bottom: 5px solid #d30000;
+}
