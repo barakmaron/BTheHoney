@@ -7,6 +7,7 @@ import './App.scss';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './components/Home';
+import Login from './components/Login';
 import Shop from './components/Shop';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
               <Route path='/' element={<Navigate to="/home" />}/>
               <Route path='/home' element={<Home></Home>} />
               <Route path='/shop' element={<Shop></Shop>} />
+
+              <Route path='/login' element={<Login></Login>} />
           </Routes>
         </div>
       </div>
