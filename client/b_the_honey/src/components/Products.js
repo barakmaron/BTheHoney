@@ -1,6 +1,7 @@
 import React from 'react';
 
 import '../css/Products.scss';
+import Button from './Button';
 
 const Products = () => {
     const fake_products = [
@@ -157,7 +158,7 @@ const Products = () => {
                 <h4>{value.name}</h4>
                 <img alt={value.name} src={value.image_url} />
                 <span>{value.price}</span>
-                <button>Buy Now</button>
+                <Button onClick={() => {}} id={"product" + key} text="Buy Now"></Button>
               </div>);
           })
       }
