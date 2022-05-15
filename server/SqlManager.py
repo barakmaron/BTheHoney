@@ -12,7 +12,7 @@ class SqlManager():
         if not self.db.is_connected():
             raise Exception("Cant connect to mysql database.")
         else:
-            self.cursor = self.db.cursor(named_tuple = True)
+            self.cursor = self.db.cursor()
 
     def _init_db(self):
         try:
@@ -45,6 +45,7 @@ class SqlManager():
         print(f"RUNNING QUERY: {query}")
         try:
             self.cursor.execute(query)
+            self.db.commit()
         except DB.Error as err:
             print (f'ERROR MESSAGE: {str(err.msg)}')
             print (f'WITH {query}')
