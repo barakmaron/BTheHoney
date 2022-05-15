@@ -14,7 +14,7 @@ const Register = () => {
             </label>
         </div>
         <div>
-            <input type="text" id='full_name' placeholder=" " pattern="[^' ']+" required/>
+            <input type="text" id='full_name' placeholder=" " pattern="^\S+\s\S+$" required/>
             <label htmlFor="full_name">
                 Full name
             </label>
