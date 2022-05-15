@@ -36,6 +36,7 @@ class SqlManager():
     def createTables(self):
         query = ("CREATE TABLE IF NOT EXISTS `users` ( `id` INT NOT NULL AUTO_INCREMENT , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `full_name` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;")
         self.runQuery(query)
+        query = ("CREATE TABLE IF NOT EXISTS `products` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `description` TEXT NOT NULL , `price` FLOAT NOT NULL , `image_url` TEXT NOT NULL , `recommendations` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;")
 
     def runQuery(self, query):
         print(f"RUNNING QUERY: {query}")
