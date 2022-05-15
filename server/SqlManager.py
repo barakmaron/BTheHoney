@@ -47,9 +47,14 @@ class SqlManager():
         try:
             self.cursor.execute(query)
             self.db.commit()
+        except DB.IntegrityError as err:
+            print (f'ERROR MESSAGE: {str(err.msg)}')
+            print (f'WITH {query}')
+            return False
         except DB.Error as err:
             print (f'ERROR MESSAGE: {str(err.msg)}')
             print (f'WITH {query}')
+            return False
         try:
             msg = self.cursor.fetchall()
         except:
@@ -60,17 +65,33 @@ class SqlManager():
         self._init_db()
 
     def registerUser(self, user):
+        res = {'status': False}
         password = md5(user.password.encode('utf8')).hexdigest()
         query = ("INSERT INTO `users` (`email`, `password`, `full_name`) VALUES ('%s', '%s', '%s')" %(user.email, password, user.full_name))
         sql_res = self.runQuery(query)
-        query = ("SELECT * FROM `users` WHERE `id` = %d" %self.cursor.lastrowid)
+        if sql_res:
+            query = ("SELECT * FROM `users` WHERE `id` = %d" %self.cursor.lastrowid)
+            sql_res = self.runQuery(query)
+            res = {
+                "id": sql_res[0][0],
+                "email": sql_res[0][1],
+                "full_name": sql_res[0][3]
+            }
+            res['status'] = True
+        return res
+
+    def loginUser(self, user):
+        res = {'status': False}
+        password = md5(user.password.encode('utf8')).hexdigest()
+        query = ("SELECT * FROM `users` WHERE `email` = '%s' AND `password` = '%s'" %(user.email, password))
         sql_res = self.runQuery(query)
-        res = {
-            "id": sql_res[0][0],
-            "email": sql_res[0][1],
-            "full_name": sql_res[0][3]
-        }
-        res['status'] = True
+        if sql_res:
+            res = {
+                "id": sql_res[0][0],
+                "email": sql_res[0][1],
+                "full_name": sql_res[0][3]
+            }
+            res['status'] = True
         return res
 
     def __del__(self):

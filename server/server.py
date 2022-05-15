@@ -12,8 +12,16 @@ db_manager = SqlManager()
 db_manager.run()
 
 @app.post('/login')
-async def login():
-    return {"login"}
+async def login(user: User):
+    res = db_manager.loginUser(user)
+    if res['status']:
+        content = {"status": "Login user successfully"}
+        response = JSONResponse(content=content)
+        md_cookie = md5(f"{res['id']}{res['email']}".encode('utf-8')).hexdigest()
+        response.set_cookie(key="BTheHoney", value=md_cookie)
+        return response
+    else:
+        raise HTTPException(status_code=400, detail="Unable to login user")
 
 @app.post('/register')
 async def register(user: User):
