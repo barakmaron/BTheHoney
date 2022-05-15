@@ -1,4 +1,5 @@
 from collections import namedtuple
+from hashlib import md5
 from mysql import connector as DB
 from mysql.connector import errorcode
 
@@ -57,3 +58,22 @@ class SqlManager():
 
     def run(self):
         self._init_db()
+
+    def registerUser(self, user):
+        password = md5(user.password.encode('utf8')).hexdigest()
+        query = ("INSERT INTO `users` (`email`, `password`, `full_name`) VALUES ('%s', '%s', '%s')" %(user.email, password, user.full_name))
+        sql_res = self.runQuery(query)
+        query = ("SELECT * FROM `users` WHERE `id` = %d" %self.cursor.lastrowid)
+        sql_res = self.runQuery(query)
+        res = {
+            "id": sql_res[0][0],
+            "email": sql_res[0][1],
+            "full_name": sql_res[0][3]
+        }
+        res['status'] = True
+        return res
+
+    def __del__(self):
+        self.db.commit()
+        self.cursor.close()
+        self.db.close()
