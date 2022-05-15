@@ -17,28 +17,33 @@ class SqlManager():
     def _init_db(self):
         try:
             # check if data base exists
-            self.cursor.database = self.db_name
+            self.db.database = self.db_name
+            self.createTables()
         except DB.Error as err:
             if err.errno == errorcode.ER_BAD_DB_ERROR:
-                self.CreateDataBase()
-                self.cursor.database = self.db_name
+                self.createDataBase()
+                self.db.database = self.db_name
+                self.createTables()
             else:
                 print(err.msg)
 
-    def CreateDataBase(self):
+    def createDataBase(self):
         try:
-            self.RunCommand("CREATE DATABASE %s DEFAULT CHARACTER SER 'utf8';" %self.db_name)
+            self.runQuery("CREATE DATABASE %s DEFAULT CHARACTER SER 'utf8';" %self.db_name)
         except DB.Error as err:
             print(f'Failed creating database: {err}')
-          
 
-    def RunCommand(self, cmd):
-        print("RUNNING COMMAND: " + cmd)
+    def createTables(self):
+        query = ("CREATE TABLE IF NOT EXISTS `users` ( `id` INT NOT NULL AUTO_INCREMENT , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `full_name` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;")
+        self.runQuery(query)
+
+    def runQuery(self, query):
+        print(f"RUNNING QUERY: {query}")
         try:
-            self.cursor.execute(cmd)
+            self.cursor.execute(query)
         except DB.Error as err:
             print (f'ERROR MESSAGE: {str(err.msg)}')
-            print (f'WITH {cmd}')
+            print (f'WITH {query}')
         try:
             msg = self.cursor.fetchall()
         except:
