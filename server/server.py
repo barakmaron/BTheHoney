@@ -1,11 +1,9 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
-from hashlib import md5
-
 from SqlManager import SqlManager
 
 from baseClass.User import User
+from server.Utilities import Utilities
 
 app = FastAPI()
 db_manager = SqlManager()
@@ -16,10 +14,7 @@ async def login(user: User):
     res = db_manager.loginUser(user)
     if res['status']:
         content = {"status": "Login user successfully"}
-        response = JSONResponse(content=content)
-        md_cookie = md5(f"{res['id']}{res['email']}".encode('utf-8')).hexdigest()
-        response.set_cookie(key="BTheHoney", value=md_cookie)
-        return response
+        return Utilities.CreateCookie(content=content, result=res)
     else:
         raise HTTPException(status_code=400, detail="Unable to login user")
 
@@ -28,10 +23,7 @@ async def register(user: User):
     res = db_manager.registerUser(user)
     if res['status']:
         content = {"status": "Registed successfully"}
-        response = JSONResponse(content=content)
-        md_cookie = md5(f"{res['id']}{res['email']}".encode('utf-8')).hexdigest()
-        response.set_cookie(key="BTheHoney", value=md_cookie)
-        return response
+        return Utilities.CreateCookie(content=content, result=res)
     else:
         raise HTTPException(status_code=400, detail="Unable to register user")
 
